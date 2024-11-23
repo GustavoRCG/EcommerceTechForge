@@ -1,4 +1,4 @@
-package br.integrado.backend.tech.Academy;
+package br.integrado.backend.tech.Academy.model;
 
 import jakarta.persistence.*;
 
