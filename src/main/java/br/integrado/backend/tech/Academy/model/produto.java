@@ -35,7 +35,7 @@ public class produto {
         public boolean equals(Object o) {
                 if (this == o) return true;
                 if (o == null || getClass() != o.getClass()) return false;
-                produto produto = (produto) o;
+                produto produto = (br.integrado.backend.tech.Academy.model.produto) o;
                 return Objects.equals(id, produto.id);
         }
 
