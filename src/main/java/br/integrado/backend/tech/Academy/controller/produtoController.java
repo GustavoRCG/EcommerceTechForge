@@ -27,6 +27,7 @@ public class produtoController {
         return this.repository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("Produto nao foi encontrado"));
     }
+
     @PostMapping
     public ResponseEntity<produto> save(@RequestBody produtoRequestDTO dto) {
         if (dto.nome().isEmpty()) {
@@ -35,16 +36,14 @@ public class produtoController {
 
         produto produto = new produto();
         produto.setNome(dto.nome());
-
-       this.repository.save(produto);
-       return ResponseEntity.ok(produto);
+        this.repository.save(produto);
+        return ResponseEntity.ok(produto);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         produto produto = this.repository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("Produto nao foi encontrado"));
-
 
         this.repository.delete(produto);
         return ResponseEntity.noContent().build();

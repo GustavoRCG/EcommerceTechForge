@@ -1,5 +1,5 @@
 package br.integrado.backend.tech.Academy.dto;
 
-public record produtoRequestDTO(String nome) {
+public record TipoPratoRequestDTO(String nome) {
 }
 
