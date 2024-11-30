@@ -15,6 +15,10 @@ public class produto {
         @Column(name = "name")
         private String nome;
 
+        @ManyToOne
+        @JoinColumn(name = "tipoprato_id", referencedColumnName = "id")
+        private TipoPrato tipoPrato;
+
         public Integer getId() {
                 return id;
         }
@@ -29,6 +33,14 @@ public class produto {
 
         public void setNome(String nome) {
                 this.nome = nome;
+        }
+
+        public TipoPrato getTipoPrato() {
+                return tipoPrato;
+        }
+
+        public void setTipoPrato(TipoPrato tipoPrato) {
+                this.tipoPrato = tipoPrato;
         }
 
         @Override
