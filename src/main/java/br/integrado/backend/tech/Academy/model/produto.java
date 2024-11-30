@@ -15,6 +15,9 @@ public class produto {
         @Column(name = "name")
         private String nome;
 
+        @Column
+        private String descricao;
+
         @ManyToOne
         @JoinColumn(name = "tipoprato_id", referencedColumnName = "id")
         private TipoPrato tipoPrato;
@@ -49,6 +52,14 @@ public class produto {
                 if (o == null || getClass() != o.getClass()) return false;
                 produto produto = (br.integrado.backend.tech.Academy.model.produto) o;
                 return Objects.equals(id, produto.id);
+        }
+
+        public String getDescricao() {
+                return descricao;
+        }
+
+        public void setDescricao(String descricao) {
+                this.descricao = descricao;
         }
 
         @Override

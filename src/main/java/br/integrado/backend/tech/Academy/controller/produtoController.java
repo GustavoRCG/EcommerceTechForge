@@ -63,4 +63,14 @@ public class produtoController {
         this.repository.save(produto);
         return ResponseEntity.ok(produto);
     }
+
+    @PostMapping("/{id}/descricao")
+    public ResponseEntity<produto> addDescricao(@PathVariable Integer id,
+                                                @RequestBody String descricao) {
+
+        produto produto = this.repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
+        produto.setDescricao(descricao);
+        this.repository.save(produto);
+        return ResponseEntity.ok(produto);
+    }
 }
