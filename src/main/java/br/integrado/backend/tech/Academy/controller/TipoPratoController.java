@@ -1,6 +1,6 @@
 package br.integrado.backend.tech.Academy.controller;
 
-import br.integrado.backend.tech.Academy.dto.TipoPratoRequestDTO;
+import br.integrado.backend.tech.Academy.dto.TipoPrato_RequestDTO;
 import br.integrado.backend.tech.Academy.model.TipoPrato;
 import br.integrado.backend.tech.Academy.repository.TipoPratoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +29,10 @@ public class TipoPratoController {
     }
 
     @PostMapping
-    public ResponseEntity<TipoPrato> save(@RequestBody TipoPratoRequestDTO dto) {
-        if (dto.nome().isEmpty()) {
-            return ResponseEntity.status(428).build();
-        }
-
+    public ResponseEntity<TipoPrato> save(@RequestBody TipoPrato_RequestDTO dto) {
+       
         TipoPrato tipoPrato = new TipoPrato();
-        tipoPrato.setNome(dto.nome());
+
         this.repository.save(tipoPrato);
         return ResponseEntity.ok(tipoPrato);
     }
@@ -50,16 +47,13 @@ public class TipoPratoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TipoPrato> update(@PathVariable Integer id, @RequestBody TipoPratoRequestDTO dto) {
-        if (dto.nome().isEmpty()) {
-            return ResponseEntity.status(428).build();
-        }
+    public ResponseEntity<TipoPrato> update(@PathVariable Integer id, @RequestBody TipoPrato_RequestDTO dto) {
+      
 
         TipoPrato tipoPrato = this.repository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("Tipo de prato não foi encontrado"));
 
-        tipoPrato.setNome(dto.nome());
-
+    
         this.repository.save(tipoPrato);
         return ResponseEntity.ok(tipoPrato);
     }

@@ -18,7 +18,7 @@ public class TipoPrato {
 
     @OneToMany(mappedBy = "tipoPrato")
     @JsonIgnoreProperties("tipoPrato")
-    private List<produto> produtos;
+    private List<Produto> produtos;
 
     public Integer getId() {
         return id;
@@ -36,11 +36,11 @@ public class TipoPrato {
         this.nome = nome;
     }
 
-    public List<produto> getProdutos() {
+    public List<Produto> getProdutos() {
         return produtos;
     }
 
-    public void setProdutos(List<produto> produtos) {
+    public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
     }
 }

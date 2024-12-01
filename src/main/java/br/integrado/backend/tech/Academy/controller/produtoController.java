@@ -1,61 +1,65 @@
 package br.integrado.backend.tech.Academy.controller;
 
-import br.integrado.backend.tech.Academy.dto.produtoRequestDTO;
-import br.integrado.backend.tech.Academy.model.produto;
-import br.integrado.backend.tech.Academy.repository.produtoRepository;
+import br.integrado.backend.tech.Academy.dto.Produto_RequestDTO;
+import br.integrado.backend.tech.Academy.model.Produto;
+import br.integrado.backend.tech.Academy.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/produto")
-public class produtoController {
+public class ProdutoController {
 
     @Autowired
-    private produtoRepository repository;
+    private ProdutoRepository repository;
 
     @GetMapping
-    public ResponseEntity<List<produto>> findAll() {
-        List<produto> produtos = this.repository.findAll();
+    public ResponseEntity<List<Produto>> findAll() {
+        List<Produto> produtos = this.repository.findAll();
         return ResponseEntity.ok(produtos);
     }
 
     @GetMapping("/{id}")
-    public produto findById(@PathVariable Integer id) {
+    public Produto findById(@PathVariable Integer id) {
         return this.repository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("Produto nao foi encontrado"));
     }
 
     @PostMapping
-    public ResponseEntity<produto> save(@RequestBody produtoRequestDTO dto) {
+    public ResponseEntity<Produto> save(@RequestBody Produto_RequestDTO dto) {
         if (dto.nome().isEmpty()) {
             return ResponseEntity.status(428).build();
         }
 
-        produto produto = new produto();
+        Produto produto = new Produto();
         produto.setNome(dto.nome());
         this.repository.save(produto);
         return ResponseEntity.ok(produto);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        produto produto = this.repository.findById(id).orElseThrow(() ->
-                new IllegalArgumentException("Produto nao foi encontrado"));
 
-        this.repository.delete(produto);
-        return ResponseEntity.noContent().build();
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable Integer id) {
+
+        Optional<Produto> produtoOpt = repository.(id);
+        if (produtoOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body("Usuario não encontrado com o id fornecido");
+        }
+        repository.deleteById(id);
+        return ResponseEntity.ok().body("Usuario deletado com sucesso.");
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<produto> update(@PathVariable Integer id, @RequestBody produtoRequestDTO dto) {
+    public ResponseEntity<?> update(@PathVariable Integer id, @RequestBody Produto_RequestDTO dto) {
         if (dto.nome().isEmpty()) {
             return ResponseEntity.status(428).build();
         }
 
-        produto produto = this.repository.findById(id).orElseThrow(() ->
+        Produto produto = this.repository.findById(id).orElseThrow(() ->
                 new IllegalArgumentException("Produto nao foi encontrado"));
 
         produto.setNome(dto.nome());
@@ -64,13 +68,13 @@ public class produtoController {
         return ResponseEntity.ok(produto);
     }
 
-    @PostMapping("/{id}/descricao")
-    public ResponseEntity<produto> addDescricao(@PathVariable Integer id,
-                                                @RequestBody String descricao) {
+    @PostMapping
+    public ResponseEntity<Produto> addDescricao(@PathVariable Integer id, @RequestBody produto_RequestDT0 dto) {
 
-        produto produto = this.repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
+        Produto produto = this.repository.findById(id).orElseThrow(() -> new IllegalArgumentException("Produto não encontrado"));
         produto.setDescricao(descricao);
-        this.repository.save(produto);
+        
+        this.repository.save(null)(produto);
         return ResponseEntity.ok(produto);
     }
 }

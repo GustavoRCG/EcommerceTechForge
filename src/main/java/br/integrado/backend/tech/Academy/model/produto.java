@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "produtos")
-public class produto {
+public class Produto {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,16 @@ public class produto {
         @ManyToOne
         @JoinColumn(name = "tipoprato_id", referencedColumnName = "id")
         private TipoPrato tipoPrato;
+    
+        public TipoPrato getTipoPrato() {
+            return tipoPrato;
+        }
+    
+        public void setTipoPrato(TipoPrato tipoPrato) {
+            this.tipoPrato = tipoPrato;
+        }
 
+       
         public Integer getId() {
                 return id;
         }
@@ -36,14 +45,6 @@ public class produto {
 
         public void setNome(String nome) {
                 this.nome = nome;
-        }
-
-        public TipoPrato getTipoPrato() {
-                return tipoPrato;
-        }
-
-        public void setTipoPrato(TipoPrato tipoPrato) {
-                this.tipoPrato = tipoPrato;
         }
 
         @Override
