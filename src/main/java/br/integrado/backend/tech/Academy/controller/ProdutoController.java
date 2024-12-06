@@ -2,6 +2,7 @@ package br.integrado.backend.tech.Academy.controller;
 
 import br.integrado.backend.tech.Academy.dto.ProdutoRequestDTO;
 import br.integrado.backend.tech.Academy.model.Produto;
+import br.integrado.backend.tech.Academy.repository.ClienteRepository;
 import br.integrado.backend.tech.Academy.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,9 @@ public class ProdutoController {
 
     @Autowired
     private ProdutoRepository produtoRepository;
+
+    @Autowired
+    private ClienteRepository clienteRepository;
 
     @GetMapping
     public ResponseEntity<List<Produto>> findAll() {
