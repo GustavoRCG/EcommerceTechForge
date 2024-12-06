@@ -1,0 +1,4 @@
+package br.integrado.backend.tech.Academy.repository;
+
+public interface ProdutoRepository extends JpaRepository<Produto, Integer> {
+}
