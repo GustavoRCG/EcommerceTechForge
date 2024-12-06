@@ -1,6 +1,9 @@
 package br.integrado.backend.tech.Academy.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "cliente")
@@ -15,6 +18,11 @@ public class Cliente {
 
     @Column
     private  String celular;
+
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Pedido> pedidos;
 
     public Integer getId_cliente() {
         return id_cliente;
@@ -36,7 +44,17 @@ public class Cliente {
         return celular;
     }
 
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
     public void setCelular(String celular) {
         this.celular = celular;
+
+
     }
 }

@@ -2,8 +2,8 @@ package br.integrado.backend.tech.Academy.dto;
 
 public class PedidoRequestDTO {
     private Integer id_pedido;
-    private Integer id_cliente;
-    private Integer id_produto;
+    private Integer cliente_id;
+    private Integer produto_id;
 
     public Integer getId_pedido() {
         return id_pedido;
@@ -13,19 +13,19 @@ public class PedidoRequestDTO {
         this.id_pedido = id_pedido;
     }
 
-    public Integer getId_cliente() {
-        return id_cliente;
+    public Integer getCliente_id() {
+        return cliente_id;
     }
 
-    public void setId_cliente(Integer id_cliente) {
-        this.id_cliente = id_cliente;
+    public void setCliente_id(Integer cliente_id) {
+        this.cliente_id = cliente_id;
     }
 
-    public Integer getId_produto() {
-        return id_produto;
+    public Integer getProduto_id() {
+        return produto_id;
     }
 
-    public void setId_produto(Integer id_produto) {
-        this.id_produto = id_produto;
+    public void setProduto_id(Integer produto_id) {
+        this.produto_id = produto_id;
     }
 }

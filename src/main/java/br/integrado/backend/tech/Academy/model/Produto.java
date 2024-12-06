@@ -1,7 +1,11 @@
 package br.integrado.backend.tech.Academy.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "produtos")
@@ -19,6 +23,13 @@ public class Produto {
     @ManyToOne
     @JoinColumn(name = "tipoprato_id", referencedColumnName = "id")
     private TipoPrato tipoPrato;
+
+
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    @JsonIgnoreProperties("pedido")
+    private List<Pedido> pedidos;
+
 
     public Integer getId() {
         return id;
@@ -50,5 +61,14 @@ public class Produto {
 
     public void setTipoPrato(TipoPrato tipoPrato) {
         this.tipoPrato = tipoPrato;
+    }
+
+    public List<Pedido> getPedidos() {
+
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 }

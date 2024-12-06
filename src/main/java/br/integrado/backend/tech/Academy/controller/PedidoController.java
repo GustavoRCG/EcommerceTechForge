@@ -4,6 +4,7 @@ import br.integrado.backend.tech.Academy.dto.ClienteRequestDTO;
 import br.integrado.backend.tech.Academy.dto.PedidoRequestDTO;
 import br.integrado.backend.tech.Academy.model.Cliente;
 import br.integrado.backend.tech.Academy.model.Pedido;
+import br.integrado.backend.tech.Academy.model.PedidoPK;
 import br.integrado.backend.tech.Academy.model.Produto;
 import br.integrado.backend.tech.Academy.repository.ClienteRepository;
 import br.integrado.backend.tech.Academy.repository.PedidoRepository;
@@ -45,12 +46,19 @@ public class PedidoController {
     @PostMapping
     public ResponseEntity<?> save(@RequestBody PedidoRequestDTO dto) {
 
-        Optional<Pedido> cliente = repository.findById(dto.getId_cliente());
+        PedidoPK pedidopk = new PedidoPK();
+        pedidopk.setClienteId(dto.getCliente_id());
+        pedidopk.setProdutoId(dto.getProduto_id());
 
 
-        Pedido pedido = new Pedido();
-        pedido.setId_pedido(dto.getId_pedido());
-        pedido.setCliente(cliente.get());
+            Optional<Cliente> clienteOpt = clienteRepository.findById(dto.getCliente_id());
+            Optional<Produto> produtoOpt = produtoRepository.findById(dto.getProduto_id());
+
+
+            Pedido pedido = new Pedido();
+            pedido.setId(pedidopk);
+            pedido.setCliente(clienteOpt.get());
+            pedido.setProduto(produtoOpt.get());
 
         Pedido clienteSave = repository.save(pedido);
         return ResponseEntity.ok(clienteSave);
